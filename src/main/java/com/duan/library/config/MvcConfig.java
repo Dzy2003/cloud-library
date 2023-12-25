@@ -1,6 +1,5 @@
 package com.duan.library.config;
 
-import com.duan.library.interceptor.ResourcesInterceptor;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -15,16 +14,7 @@ import java.util.Arrays;
 public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 登录拦截器
-        registry.addInterceptor(new ResourcesInterceptor(
-                Arrays.stream(("/logout,/selectNewbooks,/findById,/borrowBook,/search," +
-                        "/searchBorrowed,/returnBook,/searchRecords")
-                        .split(",")).toList()
-        )).addPathPatterns("/**").excludePathPatterns(
-                "/css/**",
-                "/js/**",
-                "/img/**",
-                "");
+
     }
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

@@ -2,6 +2,7 @@ package com.duan.library.service;
 
 import com.duan.library.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.duan.library.entity.PageResult;
 
 /**
 * @author soga
@@ -11,4 +12,19 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserService extends IService<User> {
 
     User login(User loginUser);
+
+    void addUser(User user);
+
+    void delUser(Integer id);
+
+    void editUser(User user);
+
+    PageResult<User> searchUsers(User user, Integer pageNum, Integer pageSize);
+
+    User findById(Integer id);
+
+    Long checkName(String name);
+
+    Long checkEmail(String email);
+
 }

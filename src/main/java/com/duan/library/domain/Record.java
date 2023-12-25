@@ -42,13 +42,13 @@ public class Record implements Serializable {
      * 图书借阅时间
      */
     @TableField(value = "record_borrowtime")
-    private String borrowtime;
+    private String borrowTime;
 
     /**
      * 图书归还时间
      */
     @TableField(value = "record_remandtime")
-    private String remandtime;
+    private String remandTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -69,8 +69,8 @@ public class Record implements Serializable {
             && (this.getBookname() == null ? other.getBookname() == null : this.getBookname().equals(other.getBookname()))
             && (this.getBookisbn() == null ? other.getBookisbn() == null : this.getBookisbn().equals(other.getBookisbn()))
             && (this.getBorrower() == null ? other.getBorrower() == null : this.getBorrower().equals(other.getBorrower()))
-            && (this.getBorrowtime() == null ? other.getBorrowtime() == null : this.getBorrowtime().equals(other.getBorrowtime()))
-            && (this.getRemandtime() == null ? other.getRemandtime() == null : this.getRemandtime().equals(other.getRemandtime()));
+            && (this.getBorrowTime() == null ? other.getBorrowTime() == null : this.getBorrowTime().equals(other.getBorrowTime()))
+            && (this.getRemandTime() == null ? other.getRemandTime() == null : this.getRemandTime().equals(other.getRemandTime()));
     }
 
     @Override
@@ -81,8 +81,8 @@ public class Record implements Serializable {
         result = prime * result + ((getBookname() == null) ? 0 : getBookname().hashCode());
         result = prime * result + ((getBookisbn() == null) ? 0 : getBookisbn().hashCode());
         result = prime * result + ((getBorrower() == null) ? 0 : getBorrower().hashCode());
-        result = prime * result + ((getBorrowtime() == null) ? 0 : getBorrowtime().hashCode());
-        result = prime * result + ((getRemandtime() == null) ? 0 : getRemandtime().hashCode());
+        result = prime * result + ((getBorrowTime() == null) ? 0 : getBorrowTime().hashCode());
+        result = prime * result + ((getRemandTime() == null) ? 0 : getRemandTime().hashCode());
         return result;
     }
 
@@ -96,8 +96,8 @@ public class Record implements Serializable {
         sb.append(", bookname=").append(bookname);
         sb.append(", bookisbn=").append(bookisbn);
         sb.append(", borrower=").append(borrower);
-        sb.append(", borrowtime=").append(borrowtime);
-        sb.append(", remandtime=").append(remandtime);
+        sb.append(", borrowtime=").append(borrowTime);
+        sb.append(", remandtime=").append(remandTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

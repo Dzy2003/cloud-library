@@ -133,10 +133,10 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book>
         //设置借阅记录的借阅人
         record.setBorrower(book.getBorrower());
         //设置借阅记录的借阅时间
-        record.setBorrowtime(book.getBorrowTime());
+        record.setBorrowTime(book.getBorrowTime());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //设置图书归还确认的当天为图书归还时间
-        record.setRemandtime(dateFormat.format(new Date()));
+        record.setRemandTime(dateFormat.format(new Date()));
         return record;
     }
 }

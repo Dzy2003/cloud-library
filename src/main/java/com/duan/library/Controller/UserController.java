@@ -1,12 +1,14 @@
 package com.duan.library.Controller;
 
 import com.duan.library.domain.User;
+import com.duan.library.entity.PageResult;
+import com.duan.library.entity.Result;
 import com.duan.library.service.impl.UserServiceImpl;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -62,6 +64,116 @@ public class UserController {
             e.printStackTrace();
             request.setAttribute("msg", "系统错误");
             return "forward:/admin/login.jsp";
+        }
+    }
+
+    /**
+     * 新增用户
+     * @param user 新增的用户信息
+     */
+    @ResponseBody
+    @RequestMapping("/addUser")
+    public Result<Void> addUser(User user) {
+        try {
+            userService.addUser(user);
+            return new Result<>(true, "新增成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<>(false, "新增失败!");
+        }
+    }
+
+    /**
+     * 办理用户离职
+     * @param id 离职的用户id
+     */
+    @ResponseBody
+    @RequestMapping("/delUser")
+    public Result<Void> delUser(Integer id) {
+        try {
+            userService.delUser(id);
+            return new Result<Void>(true, "离职办理成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<Void>(false, "离职办理失败!");
+        }
+    }
+
+    /**
+     * 修改用户信息
+     * @param user 修改的用户信息
+     */
+    @ResponseBody
+    @RequestMapping("/editUser")
+    public Result<Void> editUser(User user) {
+        try {
+            userService.editUser(user);
+            return new Result<>(true, "修改成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<>(false, "修改失败!");
+        }
+    }
+
+    /**
+     * 查询用户
+     * @param user 查询的条件
+     * @param pageNum  数据列表的当前页码
+     * @param pageSize 数据列表1页展示多少条数据
+     */
+    @RequestMapping("/search")
+    public String search(User user, Integer pageNum, Integer pageSize,HttpServletRequest request) {
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        PageResult<User> pageResult = userService.searchUsers(user, pageNum, pageSize);
+        request.setAttribute("pageResult", pageResult);
+        request.setAttribute("search", user);
+        request.setAttribute("pageNum", pageNum);
+        request.setAttribute("gourl", "/user/search");
+        return "forward:/admin/user.jsp";
+    }
+
+    /**
+     * 根据id查询用户
+     * @param id 用户id，用作查询条件
+     */
+    @ResponseBody
+    @RequestMapping("/findById")
+    public User findById(Integer id) {
+        return userService.findById(id);
+    }
+
+    /**
+     * 检查用户名称是否已经存在
+     * @param name 用户名称
+     */
+    @ResponseBody
+    @RequestMapping("/checkName")
+    public Result<Void> checkName(String name) {
+        Long count = userService.checkName(name);
+        if (count > 0) {
+            return new Result<Void>(false, "名字重复!");
+        } else {
+            return new Result<Void>(true, "名字可用!");
+        }
+    }
+
+    /**
+     * 校验用户的邮箱是否已经存在
+     * @param email 被校验的用户邮箱
+     */
+    @ResponseBody
+    @RequestMapping("/checkEmail")
+    public Result<Void> checkEmail(String email) {
+        Long count = userService.checkEmail(email);
+        if (count > 0) {
+            return new Result<Void>(false, "邮箱重复!");
+        } else {
+            return new Result<Void>(true, "邮箱可用!");
         }
     }
 }

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.duan.library.domain.Book;
 import com.duan.library.domain.User;
 import com.duan.library.entity.PageResult;
-import com.duan.library.entity.result;
+import com.duan.library.entity.Result;
 import com.duan.library.service.impl.BookServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,16 +48,16 @@ public class BookController {
 
     @ResponseBody
     @GetMapping("/findById")
-    public result<Book> findById(String id) {
+    public Result<Book> findById(String id) {
         try {
             Book book = bookService.findById(id);
             if (book == null) {
-                return new result<>(false, "查询图书失败！");
+                return new Result<>(false, "查询图书失败！");
             }
-            return new result<>(true, "查询图书成功", book);
+            return new Result<>(true, "查询图书成功", book);
         } catch (Exception e) {
             e.printStackTrace();
-            return new result<>(false, "查询图书失败！");
+            return new Result<>(false, "查询图书失败！");
         }
     }
 
@@ -69,7 +69,7 @@ public class BookController {
      */
     @ResponseBody
     @RequestMapping("/borrowBook")
-    public result borrowBook(Book book, HttpSession session) {
+    public Result borrowBook(Book book, HttpSession session) {
         //获取当前登录的用户姓名
         String pname = ((User) session.getAttribute("USER_SESSION")).getName();
         book.setBorrower(pname);
@@ -77,12 +77,12 @@ public class BookController {
             //根据图书的id和用户进行图书借阅
             Integer count = bookService.borrowBook(book);
             if (count != 1) {
-                return new result<>(false, "借阅图书失败!");
+                return new Result<>(false, "借阅图书失败!");
             }
-            return new result<>(true, "借阅成功，请到行政中心取书!");
+            return new Result<>(true, "借阅成功，请到行政中心取书!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new result<>(false, "借阅图书失败!");
+            return new Result<>(false, "借阅图书失败!");
         }
     }
 
@@ -123,16 +123,16 @@ public class BookController {
      */
     @ResponseBody
     @RequestMapping("/addBook")
-    public result<Void> addBook(Book book) {
+    public Result<Void> addBook(Book book) {
         try {
             Integer count = bookService.addBook(book);
             if (count != 1) {
-                return new result<>(false, "新增图书失败!");
+                return new Result<>(false, "新增图书失败!");
             }
-            return new result<>(true, "新增图书成功!");
+            return new Result<>(true, "新增图书成功!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new result<>(false, "新增图书失败!");
+            return new Result<>(false, "新增图书失败!");
         }
     }
 
@@ -143,16 +143,16 @@ public class BookController {
      */
     @ResponseBody
     @RequestMapping("/editBook")
-    public result<Void> editBook(Book book) {
+    public Result<Void> editBook(Book book) {
         try {
             Integer count = bookService.editBook(book);
             if (count != 1) {
-                return new result<Void>(false, "编辑失败!");
+                return new Result<Void>(false, "编辑失败!");
             }
-            return new result<Void>(true, "编辑成功!");
+            return new Result<Void>(true, "编辑成功!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new result<Void>(false, "编辑失败!");
+            return new Result<Void>(false, "编辑失败!");
         }
     }
 
@@ -191,17 +191,17 @@ public class BookController {
      */
     @ResponseBody
     @RequestMapping("/returnBook")
-    public result<Void> returnBook(String id, HttpSession session) {
+    public Result<Void> returnBook(String id, HttpSession session) {
         //获取当前登录的用户信息
         User user = (User) session.getAttribute("USER_SESSION");
         try {
             boolean flag = bookService.returnBook(id, user);
             if (!flag) {
-                return new result<>(false, "还书失败!");
+                return new Result<>(false, "还书失败!");
             }
-            return new result<>(true, "还书确认中，请先到行政中心还书!");
+            return new Result<>(true, "还书确认中，请先到行政中心还书!");
         } catch (Exception e) {
-            return new result<>(false, "还书失败!");
+            return new Result<>(false, "还书失败!");
         }
     }
 
@@ -212,16 +212,16 @@ public class BookController {
      */
     @ResponseBody
     @RequestMapping("/returnConfirm")
-    public result<Void> returnConfirm(String id) {
+    public Result<Void> returnConfirm(String id) {
         try {
             Integer count = bookService.returnConfirm(id);
             if (count != 1) {
-                return new result<>(false, "确认失败!");
+                return new Result<>(false, "确认失败!");
             }
-            return new result<>(true, "确认成功!");
+            return new Result<>(true, "确认成功!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new result<>(false, "确认失败!");
+            return new Result<>(false, "确认失败!");
         }
 
     }

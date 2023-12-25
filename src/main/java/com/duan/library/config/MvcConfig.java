@@ -12,7 +12,6 @@ import java.util.Arrays;
  * @description
  */
 @Configurable
-@EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -21,7 +20,11 @@ public class MvcConfig implements WebMvcConfigurer {
                 Arrays.stream(("/logout,/selectNewbooks,/findById,/borrowBook,/search," +
                         "/searchBorrowed,/returnBook,/searchRecords")
                         .split(",")).toList()
-        )).addPathPatterns("/**").excludePathPatterns("/css/**","/js/**","/img/**");
+        )).addPathPatterns("/**").excludePathPatterns(
+                "/css/**",
+                "/js/**",
+                "/img/**",
+                "");
     }
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

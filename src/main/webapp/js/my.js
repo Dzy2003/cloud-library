@@ -190,7 +190,7 @@ function resetUserFrom() {
 
 }
 function findUserById(uid) {
-    var url = getProjectPath()+"/user/findById?id=" + uid;
+    var url = getProjectPath()+"/findById?id=" + uid;
     $.get(url, function (response) {
         $("#uid").val(response.id);
         $("#uname").val(response.name);
@@ -203,7 +203,7 @@ function findUserById(uid) {
 }
 
 function editUser() {
-    var url =getProjectPath()+ "/user/editUser";
+    var url =getProjectPath()+ "/editUser";
     $.post(url, $("#editUser").serialize(), function (response) {
         alert(response.message)
         if (response.success == true) {
@@ -250,7 +250,7 @@ function checkVal() {
 }
 
 function checkName(name, email) {
-    var url = getProjectPath()+"/user/checkName?name=" + name;
+    var url = getProjectPath()+"/checkName?name=" + name;
     $.post(url, function (response) {
         if (response.success != true) {
             $("#savemsg").attr("disabled", true);
@@ -260,7 +260,7 @@ function checkName(name, email) {
 }
 
 function checkEmail(email) {
-    var url = getProjectPath()+"/user/checkEmail?email=" + email;
+    var url = getProjectPath()+"/checkEmail?email=" + email;
     $.post(url, function (response) {
         if (response.success != true) {
             $("#savemsg").attr("disabled", true);
@@ -270,7 +270,7 @@ function checkEmail(email) {
 }
 
 function saveUser() {
-    var url =getProjectPath()+"/user/addUser";
+    var url =getProjectPath()+"/addUser";
     $.post(url, $("#addUser").serialize(), function (response) {
         alert(response.message)
         if (response.success == true) {
@@ -281,7 +281,7 @@ function saveUser() {
 function delUser(uid) {
     var r = confirm("确定办理工号：" + uid + "的离职?");
     if (r) {
-        var url = getProjectPath() + "/user/delUser?id=" + uid;
+        var url = getProjectPath() + "/delUser?id=" + uid;
         $.get(url, function (response) {
             alert(response.message)
             if (response.success == true) {

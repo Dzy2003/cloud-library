@@ -1,0 +1,24 @@
+server:
+  port: 8080
+spring:
+  application : library
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/library?useSSL=false&serverTimezone=UTC
+    username: root
+    password: asdqwe123
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      column-prefix: user_
+      id-type: 0
+logging:
+  level:
+    com.duan,library: debug
